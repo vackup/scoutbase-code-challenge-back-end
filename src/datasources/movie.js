@@ -5,17 +5,17 @@ class MovieAPI extends DataSource {
       super();
       this.store = store;
     }
-    
+
     initialize(config) {
       this.context = config.context;
     }
 
     async getMovies() {          
-        const movies = await this.store.movies.findAll({raw: true});        
-        
-        console.log(movies);
+        const movies = await this.store.movies.findAll();
 
-            return movies;
+        //const movies_actors = await this.store.movies_actors.findAll();
+        
+        return movies;
     }
 };
 

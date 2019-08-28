@@ -10,6 +10,20 @@ const typeDefs = gql`
     title: String
     year: Int
     rating: Int
+    actors: [Actor]
+  }
+
+  type Actor {
+    name: String
+    birthday: String
+    country: String
+    directors: [Director]
+  }
+
+  type Director {
+    name: String
+    birthday: String
+    country: String
   }
 `;
 

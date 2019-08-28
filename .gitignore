@@ -93,3 +93,5 @@ typings/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.vs/back-end/v16/.suo
+.vs/VSWorkspaceState.json
