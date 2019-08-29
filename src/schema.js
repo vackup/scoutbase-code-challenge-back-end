@@ -2,29 +2,31 @@ const { gql } = require('apollo-server-express');
 
 // The GraphQL schema
 const typeDefs = gql`
-  type Query {  
-    movies: [Movie]
-  }
+    scalar DateTime
 
-  type Movie {
-    title: String
-    year: Int
-    rating: Int
-    actors: [Actor]
-  }
+    type Query {  
+        movies: [Movie]
+    }
 
-  type Actor {
-    name: String
-    birthday: String
-    country: String
-    directors: [Director]
-  }
+    type Movie {
+        title: String
+        year: Int
+        rating: Int
+        actors: [Actor]
+    }
 
-  type Director {
-    name: String
-    birthday: String
-    country: String
-  }
+    type Actor {
+        name: String
+        birthday: DateTime
+        country: String
+        directors: [Director]
+    }
+
+    type Director {
+        name: String
+        birthday: DateTime
+        country: String
+    }
 `;
 
 module.exports = typeDefs;
