@@ -17,7 +17,7 @@ const resolvers = {
 
     Mutation: {
         login: async (_, { username, password }, { dataSources }) => 
-            await dataSources.userAPI.login(username, password),
+            await dataSources.userAPI.findByUserNameAndPassword(username, password),
 
         createUser: async (_, { username, password }, { dataSources }) => 
             await dataSources.userAPI.createUser(username, password),

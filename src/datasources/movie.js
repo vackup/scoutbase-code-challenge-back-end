@@ -12,15 +12,17 @@ class MovieAPI extends DataSource {
 
     async getMovies() {
       
+      const isUserLogged = this.isUserLogged();     
+
       // TODO: eager loading
       const movies = await this.store.movies.findAll();
 
       return movies && movies.length > 0
-        ? movies.map(movie => this.getMovieModel(movie)) 
+        ? movies.map(movie => this.getMovieModel(movie, isUserLogged)) 
         : [];
     }
 
-    getMovieModel(movie) {
+    getMovieModel(movie, isUserLogged) {     
 
       const actors = movie.getActors();
 
@@ -28,8 +30,23 @@ class MovieAPI extends DataSource {
         title: movie.title,
         year: movie.year,
         rating: movie.rating,
+        scoutbase_rating: isUserLogged ? this.generateRandomNumber() : null,
         actors: actors.map(actor => this.getActorModel(actor))
       };
+    }
+
+    generateRandomNumber() {
+      var min = 5.0,
+          max = 9.0,
+          highlightedNumber = Math.random() * (max - min) + min;
+  
+      return highlightedNumber;
+  };
+
+    isUserLogged() {     
+      console.log(this.context && this.context.userId);
+
+      return this.context && this.context.userId;
     }
 
     getActorModel(actor){

@@ -10,25 +10,29 @@ class UserAPI extends DataSource {
       this.context = config.context;
     }
 
-    async login(username, password) {
+    async findById(userId) {
         const users = await this.store.users.findAll({
-            where: { name: username, password: password }
-        });
-
-        console.log(users);
+            where: { id: userId }
+        });        
 
         if (users && users.length === 1) {
             const user = users[0];
 
-            const token = this.getToken(user);        
+            return this.getUser(user);
+        }
 
-            return {
-                token: token,
-                user: {
-                    id: user.id,
-                    name: user.name
-                }
-            };
+        return null;
+    }
+
+    async findByUserNameAndPassword(username, password) {
+        const users = await this.store.users.findAll({
+            where: { name: username, password: password }
+        });
+
+        if (users && users.length === 1) {
+            const user = users[0];
+
+            return this.getUser(user);
         }
         else if (users && users.length > 1) {
             throw "user integrity validation error";
@@ -56,7 +60,19 @@ class UserAPI extends DataSource {
     getToken(user) {
         // TODO: implement stronger auth token please!!!
 
-        return Buffer.from(user.id.toString() + user.name).toString('base64');
+        return Buffer.from(user.id.toString()).toString('base64');
+    }
+
+    getUser(user){
+        const token = this.getToken(user);        
+
+        return {
+            token: token,
+            user: {
+                id: user.id,
+                name: user.name
+            }
+        };
     }
 };
 

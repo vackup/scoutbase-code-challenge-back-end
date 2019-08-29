@@ -14,10 +14,21 @@ const dataSources = () => ({
   userAPI: new UserAPI({ store }),
 });
 
+const context = async ({ req }) => {
+  const auth = (req.headers && req.headers.authorization) || '';
+  const userId = new Buffer(auth, 'base64').toString('ascii');
+  
+  // const userAPI = new UserAPI({ store });
+  // const user = await userAPI.findById(userId);
+  
+  return { userId: userId };
+};
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources,
+  context
 });
 
 const app = express();

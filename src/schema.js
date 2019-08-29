@@ -28,6 +28,7 @@ const typeDefs = gql`
         title: String
         year: Int
         rating: Int
+        scoutbase_rating: Float
         actors: [Actor]
     }
 
