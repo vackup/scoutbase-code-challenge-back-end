@@ -54,6 +54,8 @@ class UserAPI extends DataSource {
     }
 
     getToken(user) {
+        // TODO: implement stronger auth token please!!!
+
         return Buffer.from(user.id.toString() + user.name).toString('base64');
     }
 };
