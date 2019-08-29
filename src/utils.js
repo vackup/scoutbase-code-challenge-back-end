@@ -1,82 +1,64 @@
-const SQL = require('sequelize');
+const Sequelize = require('sequelize');
 
 module.exports.createStore = () => {
-    const Op = SQL.Op;
+    const Op = Sequelize.Op;
     const operatorsAliases = {
-      $in: Op.in,
+        $in: Op.in,
     };
-  
-    const db = new SQL('database', 'username', 'password', {
-      dialect: 'sqlite',
-      storage: './store.sqlite',
-      operatorsAliases,
-      logging: false,
-    });
-  
-    const movies = db.define('movie', {
-      id: {
-        type: SQL.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-      },      
-      title: SQL.STRING,
-      year: SQL.INTEGER,
-      rating: SQL.INTEGER,
-      createdAt: SQL.DATE,
-      updatedAt: SQL.DATE,
-    });
-  
-    const actors = db.define('actor', {
-      id: {
-        type: SQL.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-      name: SQL.STRING,
-      birthday: SQL.DATE,
-      country: SQL.STRING,
-      createdAt: SQL.DATE,
-      updatedAt: SQL.DATE,
+
+    const sequelize = new Sequelize('database', 'username', 'password', {
+        dialect: 'sqlite',
+        storage: './store.sqlite',
+        operatorsAliases,
+        logging: false,
     });
 
-    const directors = db.define('director', {
+    const movies = sequelize.define('movie', {
         id: {
-          type: SQL.INTEGER,
-          primaryKey: true,
-          autoIncrement: true,
-        },
-        name: SQL.STRING,
-        birthday: SQL.DATE,
-        country: SQL.STRING,
-        createdAt: SQL.DATE,
-        updatedAt: SQL.DATE,
-      });
-
-    const movie_actors = db.define('movie_actors', {
-        id_movie: {
-          type: SQL.INTEGER,
-          primaryKey: true
-        },
-        id_actor: {
-            type: SQL.INTEGER,
-            primaryKey: true
-          },
-        createdAt: SQL.DATE,
-        updatedAt: SQL.DATE,
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },      
+        title: Sequelize.STRING,
+        year: Sequelize.INTEGER,
+        rating: Sequelize.INTEGER,
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
     });
 
-    const actor_directors = db.define('actor_directors', {        
-        id_actor: {
-            type: SQL.INTEGER,
-            primaryKey: true
-          },
-        id_director: {
-            type: SQL.INTEGER,
-            primaryKey: true
+    const actors = sequelize.define('actor', {
+        id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
         },
-        createdAt: SQL.DATE,
-        updatedAt: SQL.DATE,
+        name: Sequelize.STRING,
+        birthday: Sequelize.DATE,
+        country: Sequelize.STRING,
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
     });
-  
-    return { movies, actors, movie_actors, actor_directors };
+
+    const directors = sequelize.define('director', {
+        id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        name: Sequelize.STRING,
+        birthday: Sequelize.DATE,
+        country: Sequelize.STRING,
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
+    });
+
+    actors.belongsToMany(movies, {through: 'movies_actors'});
+    movies.belongsToMany(actors, {through: 'movies_actors'});
+
+    directors.belongsToMany(actors, {through: 'actors_directors'});
+    actors.belongsToMany(directors, {through: 'actors_directors'});
+
+    sequelize.sync();
+
+    return { movies, actors, directors }; 
 };

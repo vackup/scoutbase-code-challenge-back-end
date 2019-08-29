@@ -11,11 +11,20 @@ class MovieAPI extends DataSource {
     }
 
     async getMovies() {          
-        const movies = await this.store.movies.findAll();
+      const movies = await this.store.movies.findAll();
 
-        //const movies_actors = await this.store.movies_actors.findAll();
-        
-        return movies;
+      return movies
+        ? movies.map(movie => this.getMovieModel(movie)) 
+        : [];
+    }
+
+    getMovieModel(movie) {
+      return {
+        title: movie.title,
+        year: movie.year,
+        rating: movie.rating,
+        actors: movie.getActors()
+      };
     }
 };
 
