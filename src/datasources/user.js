@@ -1,0 +1,61 @@
+const { DataSource } = require('apollo-datasource');
+
+class UserAPI extends DataSource {
+    constructor({ store }) {
+      super();
+      this.store = store;
+    }
+
+    initialize(config) {
+      this.context = config.context;
+    }
+
+    async login(username, password) {
+        const users = await this.store.users.findAll({
+            where: { name: username, password: password }
+        });
+
+        console.log(users);
+
+        if (users && users.length === 1) {
+            const user = users[0];
+
+            const token = this.getToken(user);        
+
+            return {
+                token: token,
+                user: {
+                    id: user.id,
+                    name: user.name
+                }
+            };
+        }
+        else if (users && users.length > 1) {
+            throw "user integrity validation error";
+        }
+
+        return null;
+    }
+
+    async createUser(username, password) {
+
+        // TODO: validate username doesn't exist
+
+        const user = await this.store.users.create({ name: username, password: password });
+        const token = this.getToken(user);
+
+        return {
+            token: token,
+            user: {
+                id: user.id,
+                name: user.name
+            }
+        };
+    }
+
+    getToken(user) {
+        return Buffer.from(user.id.toString() + user.name).toString('base64');
+    }
+};
+
+module.exports = UserAPI;

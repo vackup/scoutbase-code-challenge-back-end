@@ -13,7 +13,15 @@ const resolvers = {
     Query: {
         movies: (_, __, { dataSources }) =>
         dataSources.movieAPI.getMovies(),
-    }
+    },
+
+    Mutation: {
+        login: async (_, { username, password }, { dataSources }) => 
+            await dataSources.userAPI.login(username, password),
+
+        createUser: async (_, { username, password }, { dataSources }) => 
+            await dataSources.userAPI.createUser(username, password),
+      },
   };
 
 module.exports = resolvers;

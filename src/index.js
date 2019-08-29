@@ -3,13 +3,15 @@ var express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
-const { createStore } = require('./utils');
+const { createStore } = require('./store');
 const MovieAPI = require('./datasources/movie');
+const UserAPI = require('./datasources/user');
 
 const store = createStore();
 
 const dataSources = () => ({
   movieAPI: new MovieAPI({ store }),
+  userAPI: new UserAPI({ store }),
 });
 
 const server = new ApolloServer({

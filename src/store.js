@@ -58,7 +58,22 @@ module.exports.createStore = () => {
     directors.belongsToMany(actors, {through: 'actors_directors'});
     actors.belongsToMany(directors, {through: 'actors_directors'});
 
+    const users = sequelize.define('user', {
+        id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        name: {
+            type: Sequelize.STRING,
+            unique: true 
+        },
+        password: Sequelize.STRING,
+        createdAt: Sequelize.DATE,
+        updatedAt: Sequelize.DATE,
+    });
+
     sequelize.sync();
 
-    return { movies, actors, directors }; 
+    return { movies, actors, directors, users }; 
 };

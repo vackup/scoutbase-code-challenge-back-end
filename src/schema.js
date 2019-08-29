@@ -8,6 +8,22 @@ const typeDefs = gql`
         movies: [Movie]
     }
 
+    type Mutation {        
+        createUser(username: String, password: String): UserAccessData
+
+        login(username: String, password: String): UserAccessData
+    }
+
+    type UserAccessData {
+        token: String,
+        user: User
+    }
+
+    type User {
+        id: ID,
+        name: String
+    }
+
     type Movie {
         title: String
         year: Int
