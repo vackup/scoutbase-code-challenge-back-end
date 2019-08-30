@@ -11,16 +11,16 @@ const resolvers = {
     }),
 
     Query: {
-        movies: (_, __, { dataSources }) =>
-        dataSources.movieAPI.getMovies(),
+        movies: async (_, __, context) =>
+            await context.dataSources.movieAPI.getMovies(context.user),
     },
 
     Mutation: {
-        login: async (_, { username, password }, { dataSources }) => 
-            await dataSources.userAPI.findByUserNameAndPassword(username, password),
+        login: async (_, { username, password }, context) => 
+            await context.dataSources.userAPI.findByUserNameAndPassword(username, password),
 
-        createUser: async (_, { username, password }, { dataSources }) => 
-            await dataSources.userAPI.createUser(username, password),
+        createUser: async (_, { username, password }, context) => 
+            await context.dataSources.userAPI.createUser(username, password),
       },
   };
 

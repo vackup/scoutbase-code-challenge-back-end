@@ -6,10 +6,6 @@ class UserAPI extends DataSource {
       this.store = store;
     }
 
-    initialize(config) {
-      this.context = config.context;
-    }
-
     async findById(userId) {
         const users = await this.store.users.findAll({
             where: { id: userId }

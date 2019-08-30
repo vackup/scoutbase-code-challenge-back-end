@@ -21,13 +21,15 @@ const context = async ({ req }) => {
   // const userAPI = new UserAPI({ store });
   // const user = await userAPI.findById(userId);
   
-  return { userId: userId };
+  return { 
+    user: userId,
+    dataSources: dataSources()
+   };
 };
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  dataSources,
   context
 });
 

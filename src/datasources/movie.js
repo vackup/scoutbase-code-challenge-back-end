@@ -6,13 +6,9 @@ class MovieAPI extends DataSource {
       this.store = store;
     }
 
-    initialize(config) {
-      this.context = config.context;
-    }
-
-    async getMovies() {
+    async getMovies(currentUser) {
       
-      const isUserLogged = this.isUserLogged();     
+      const isUserLogged = this.isUserLogged(currentUser);     
 
       // TODO: eager loading
       const movies = await this.store.movies.findAll();
@@ -43,10 +39,11 @@ class MovieAPI extends DataSource {
       return highlightedNumber;
   };
 
-    isUserLogged() {     
-      console.log(this.context && this.context.userId);
+    isUserLogged(currentUser) {           
+      if (currentUser)
+        return true;
 
-      return this.context && this.context.userId;
+      return false;
     }
 
     getActorModel(actor){
