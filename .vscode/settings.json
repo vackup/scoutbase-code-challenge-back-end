@@ -1,5 +1,7 @@
 {
-    "appService.showBuildDuringDeployPrompt": false,
+    "appService.deploySubpath": "",
     "appService.defaultWebAppToDeploy": "/subscriptions/277faf71-46cb-40b0-9521-1bdc46a54fc6/resourceGroups/appsvc_linux_eastus/providers/Microsoft.Web/sites/scoutbase-code-challenge-backend",
-    "appService.deploySubpath": ""
+    "appService.zipIgnorePattern": [
+        ".vscode{,/**}"
+    ]
 }
