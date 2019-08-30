@@ -1,3 +1,4 @@
+var cors = require('cors')
 var express = require('express');
 
 const { ApolloServer } = require('apollo-server-express');
@@ -35,8 +36,14 @@ const server = new ApolloServer({
 
 const app = express();
 
+app.use(cors());
+
 server.applyMiddleware({ app }); // app is from an existing express app
 
+/*
 app.listen(3000, () =>
   console.log('App listening on port 3000!'),
 );
+*/
+
+module.exports = app;
