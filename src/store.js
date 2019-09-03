@@ -1,17 +1,20 @@
 const Sequelize = require('sequelize');
 
 module.exports.createStore = () => {
-    const Op = Sequelize.Op;
-    const operatorsAliases = {
-        $in: Op.in,
-    };
+    
+    //process.env.DATABASE,
+    //process.env.DATABASE_USER,
+    //process.env.DATABASE_PASSWORD,
 
-    const sequelize = new Sequelize('database', 'username', 'password', {
-        dialect: 'sqlite',
-        storage: './store.sqlite',
-        operatorsAliases,
-        logging: false,
-    });
+    const sequelize = new Sequelize(
+        'ScoutbaseDB',
+        'postgres',
+        '123456*',
+        {
+          dialect: 'postgres',
+          host: "127.0.0.1"
+        },
+      );
 
     const movies = sequelize.define('movie', {
         id: {
