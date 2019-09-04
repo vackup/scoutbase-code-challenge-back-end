@@ -1,3 +1,7 @@
+ The app was deployed to Azure. The Azure version is using an Azure Database for PostgreSQL
+ 
+ You can access the Graphql playground here https://scoutbase-code-challenge-backend.azurewebsites.net/graphql 
+
 # Back-end task of Code Challenge for Scoutbase
 
 This task is for demonstrating your understanding of HTTP, GraphQL, Node.js and general API practices.
