@@ -1,18 +1,16 @@
 const Sequelize = require('sequelize');
 
 module.exports.createStore = () => {
-    
-    //process.env.DATABASE,
-    //process.env.DATABASE_USER,
-    //process.env.DATABASE_PASSWORD,
-
     const sequelize = new Sequelize(
-        'ScoutbaseDB',
-        'postgres',
-        '123456*',
+        process.env.DATABASE,
+        process.env.DATABASE_USER,
+        process.env.DATABASE_PASSWORD,
         {
-          dialect: 'postgres',
-          host: "127.0.0.1"
+          dialect: process.env.DATABASE_DIALECT,
+          host: process.env.DATABASE_HOST,
+          port: process.env.DATABASE_PORT,
+          ssl: process.env.DATABASE_SSL,
+          dialectOptions: { ssl: process.env.DATABASE_SSL }
         },
       );
 
