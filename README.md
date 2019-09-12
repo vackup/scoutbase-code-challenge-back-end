@@ -1,6 +1,17 @@
- The app was deployed to Azure. The Azure version is using an Azure Database for PostgreSQL
+# Background and motivation
+Trying to learn GraphQL (https://graphql.org/) I found the "Code Challenge for Scoutbase" (https://medium.com/scoutbase/we-are-hiring-javascript-developers-e7833762a40d). 
  
- You can access the Graphql playground here https://scoutbase-code-challenge-backend.azurewebsites.net/graphql 
+The drawback of the challenge was that I've never done a nodejs app but as I knew JS and I have many many years of experience building web apps (mainly .net) and I love to learn new thing, I decided to go for it! 
+ 
+So I went from nothing (0) using NodeJs, GraphQL, Sequelize, PostgreSQL to this in just a couple of hours.
+ 
+Here you have the code (it's an MVP or a prototype) and the code challenge description
+ 
+The app is deployed to Azure through Azure pipelines. [![Build Status](https://dev.azure.com/hernanzaldivar/scoutbase-code-challenge/_apis/build/status/vackup.scoutbase-code-challenge-back-end?branchName=master)](https://dev.azure.com/hernanzaldivar/scoutbase-code-challenge/_build/latest?definitionId=26&branchName=master)
+
+The app is using an Azure Database for PostgreSQL. 
+
+You can access the Graphql playground here https://scoutbase-code-challenge-backend.azurewebsites.net/graphql 
 
 # Back-end task of Code Challenge for Scoutbase
 
